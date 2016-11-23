@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HelloService} from './services/hello.service'
+import { HelloService } from './services/hello.service'
 
 @Component({
   selector: 'app-root',
@@ -12,16 +12,16 @@ export class AppComponent implements OnInit {
   helloService: HelloService;
   greeting = 'app works!';
 
-  constructor (helloService: HelloService){
+  constructor(helloService: HelloService) {
     this.helloService = helloService;
   }
 
   ngOnInit() {
-      this.helloService.getGreeting()
-        .subscribe(greeting => this.greeting = greeting);
+    this.helloService.getGreeting()
+      .subscribe(greeting => this.greeting = greeting);
   }
 
-  
 
-  
+
+
 }
