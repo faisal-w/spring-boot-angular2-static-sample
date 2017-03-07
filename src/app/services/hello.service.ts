@@ -7,9 +7,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HelloService {
-    constructor(private http: Http) {
-        this.http = http;
-    }
+    constructor(private http: Http) {}
+
     getGreeting(): Observable<string> {
         return this.http.get("/api/hello").map(res => res.text())
     }
