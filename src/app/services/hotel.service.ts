@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 
-import { Http, Response } from '@angular/http'
+import { Http, Response, Headers } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
@@ -22,10 +22,12 @@ export class HotelService {
       .map(res => res.json())
   }
 
+
   createHotel(hotel: Hotel): Observable<Hotel> {
     let bodyString = JSON.stringify(hotel);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     console.log("Creating Hotel : " + bodyString)
-    return this.http.post("/rest/hotels", bodyString)
+    return this.http.post("/rest/hotels", bodyString, {headers: headers})
       .map((res: Response) => res.json())
   }
 }
