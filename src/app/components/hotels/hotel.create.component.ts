@@ -14,12 +14,9 @@ export class HotelCreateComponent {
   }
 
   createHotel(hotel: Hotel) {
-    console.log("from hotel.create.component.." + hotel)
     this.hotelService.createHotel(hotel).subscribe(createdHotel => {
-      console.log("Created Hotel!!" + createdHotel)
       this.router.navigate(['list']);
     })
-    
   }
 
 }
