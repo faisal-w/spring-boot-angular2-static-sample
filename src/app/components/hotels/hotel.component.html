@@ -17,7 +17,7 @@
                 <td>{{hotel.name}}</td>
                 <td>{{hotel.address}}</td>
                 <td>{{hotel.zip}}</td>
-                <td><a [routerLink]="['/edit']">Edit</a> </td>
+                <td><a [routerLink]="['/edit', hotel.id]">Edit</a> </td>
             </tbody>
         </table>
     </div>

@@ -40,4 +40,9 @@ export class HotelService {
     return this.http.put("/rest/hotels/" + hotel.id, bodyString, requestOptions)
       .map((res: Response) => res.json())
   }
+
+  getHotel(id: number) {
+    return this.http.get(`/rest/hotels/${ id }`)
+      .map(res => res.json())
+  }
 }

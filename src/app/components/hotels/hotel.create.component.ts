@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {HotelService, Hotel} from '../../services/hotel.service'
 import {Router} from '@angular/router'
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'create-hotel',
@@ -10,13 +11,20 @@ import {Router} from '@angular/router'
 })
 export class HotelCreateComponent {
 
-  hotel: Hotel = new Hotel();
+  hotelModel: FormGroup;
 
-  constructor(private hotelService: HotelService, private router: Router) {
+  constructor(private hotelService: HotelService, private router: Router, fb: FormBuilder) {
+    this.hotelModel = fb.group({
+      "name" : ['', Validators.required],
+      "address": ['', Validators.required],
+      "zip": ['', Validators.required]
+    })
   }
 
-  createHotel() {
-    this.hotelService.createHotel(this.hotel).subscribe(createdHotel => {
+  createHotel(hotel: Hotel) {
+    console.log("Create Hotel called..")
+    console.log(this.hotelModel)
+    this.hotelService.createHotel(hotel).subscribe(createdHotel => {
       this.router.navigate(['list']);
     })
   }
