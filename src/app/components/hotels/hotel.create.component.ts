@@ -10,11 +10,13 @@ import {Router} from '@angular/router'
 })
 export class HotelCreateComponent {
 
+  hotel: Hotel = new Hotel();
+
   constructor(private hotelService: HotelService, private router: Router) {
   }
 
-  createHotel(hotel: Hotel) {
-    this.hotelService.createHotel(hotel).subscribe(createdHotel => {
+  createHotel() {
+    this.hotelService.createHotel(this.hotel).subscribe(createdHotel => {
       this.router.navigate(['list']);
     })
   }

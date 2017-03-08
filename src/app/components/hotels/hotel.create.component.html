@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-12">
-        <form class="form-horizontal" ngForm #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+        <form class="form-horizontal" ngForm #f="ngForm" (ngSubmit)="createHotel()">
             <fieldset>
                 <label for="name" class="col-2">Name</label>
 
                 <div class="col-6">
-                    <input class="form-control" placeholder="Name" name="name" ngModel/>
+                    <input class="form-control" placeholder="Name" [(ngModel)]="hotel.name" name="name" required/>
                 </div>
 
             </fieldset>
@@ -14,7 +14,7 @@
                     <label for="address" class="col-2">Address</label>
 
                     <div class="col-6">
-                        <input class="form-control" placeholder="Address" name="address" ngModel/>
+                        <input class="form-control" placeholder="Address" [(ngModel)]="hotel.address" name="address" required/>
                     </div>
                 </div>
             </fieldset>
@@ -23,15 +23,14 @@
                     <label for="zip" class="col-2">Zip</label>
 
                     <div class="col-6">
-                        <input class="form-control" placeholder="Zip" name="zip" ngModel>
+                        <input class="form-control" placeholder="Zip" [(ngModel)]="hotel.zip" name="zip" required/>
                     </div>
                 </div>
             </fieldset>
 
 
-            <a class="btn btn-primary" (click)="createHotel(f.value)">Submit</a>
+            <input type="submit" class="btn btn-primary" value="Submit"/>
             <a [routerLink]="['/list']">List Hotels</a>
         </form>
-        <pre>{{ f.value | json }}</pre>
     </div>
 </div>
