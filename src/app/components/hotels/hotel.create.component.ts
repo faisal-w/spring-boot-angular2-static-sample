@@ -15,18 +15,19 @@ export class HotelCreateComponent {
 
   constructor(private hotelService: HotelService, private router: Router, fb: FormBuilder) {
     this.hotelModel = fb.group({
-      "name" : ['', Validators.required],
+      "name" : ['', [Validators.required, Validators.minLength(2)]],
       "address": ['', Validators.required],
       "zip": ['', Validators.required]
     })
   }
 
-  createHotel(hotel: Hotel) {
-    console.log("Create Hotel called..")
-    console.log(this.hotelModel)
-    this.hotelService.createHotel(hotel).subscribe(createdHotel => {
-      this.router.navigate(['list']);
-    })
+  createHotel() {
+    let hotel = this.hotelModel.value
+    if (this.hotelModel.valid) {
+      this.hotelService.createHotel(hotel).subscribe(createdHotel => {
+        this.router.navigate(['list']);
+      })
+    }
   }
 
 }

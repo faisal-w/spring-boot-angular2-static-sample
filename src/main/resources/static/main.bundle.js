@@ -27,18 +27,19 @@ var HotelCreateComponent = (function () {
         this.hotelService = hotelService;
         this.router = router;
         this.hotelModel = fb.group({
-            "name": ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* Validators */].required],
+            "name": ['', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* Validators */].minLength(2)]],
             "address": ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* Validators */].required],
             "zip": ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["c" /* Validators */].required]
         });
     }
-    HotelCreateComponent.prototype.createHotel = function (hotel) {
+    HotelCreateComponent.prototype.createHotel = function () {
         var _this = this;
-        console.log("Create Hotel called..");
-        console.log(this.hotelModel);
-        this.hotelService.createHotel(hotel).subscribe(function (createdHotel) {
-            _this.router.navigate(['list']);
-        });
+        var hotel = this.hotelModel.value;
+        if (this.hotelModel.valid) {
+            this.hotelService.createHotel(hotel).subscribe(function (createdHotel) {
+                _this.router.navigate(['list']);
+            });
+        }
     };
     return HotelCreateComponent;
 }());
@@ -65,8 +66,6 @@ var _a, _b, _c;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_hotel_service__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HotelEditComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -77,7 +76,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -96,21 +94,23 @@ var HotelEditComponent = (function () {
             "version": ['']
         });
     }
-    HotelEditComponent.prototype.updateHotel = function (hotel) {
+    HotelEditComponent.prototype.updateHotel = function () {
         var _this = this;
-        this.hotelService.updateHotel(hotel).subscribe(function (updatedHotel) {
-            return _this.router.navigate(['list']);
-        });
+        var hotel = this.hotelModel.value;
+        if (this.hotelModel.valid) {
+            this.hotelService.updateHotel(hotel).subscribe(function (updatedHotel) {
+                return _this.router.navigate(['list']);
+            });
+        }
     };
     HotelEditComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.params.switchMap(function (params) {
-            return _this.hotelService
-                .getHotel(params["id"]);
-        }).subscribe(function (hotel) {
+        var hotelId = this.route.snapshot.params["id"];
+        this.hotelService
+            .getHotel(hotelId).subscribe(function (hotel) {
             return _this.hotelModel = _this.fb.group({
                 "id": [hotel.id],
-                "name": [hotel.name, __WEBPACK_IMPORTED_MODULE_0__angular_forms__["c" /* Validators */].required],
+                "name": [hotel.name, [__WEBPACK_IMPORTED_MODULE_0__angular_forms__["c" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_0__angular_forms__["c" /* Validators */].minLength(2)]],
                 "address": [hotel.address, __WEBPACK_IMPORTED_MODULE_0__angular_forms__["c" /* Validators */].required],
                 "zip": [hotel.zip, __WEBPACK_IMPORTED_MODULE_0__angular_forms__["c" /* Validators */].required],
                 "version": [hotel.version]
@@ -168,18 +168,18 @@ module.exports = "<div class=\"row\">\n    <div class=\"col-xs-12\">\n        <t
 /***/ 163:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-xs-12\">\n        <form [formGroup]=\"hotelModel\" class=\"form-horizontal\" (ngSubmit)=\"createHotel(hotelModel.value)\">\n\n              <div class=\"form-group\">\n                <label for=\"name\" class=\"col-xs-2\">Name</label>\n                <div class=\"col-xs-6\">\n                    <input class=\"form-control\" placeholder=\"Name\" formControlName=\"name\"/>\n                    <span [hidden]=\"!hotelModel.hasError('required', 'name')\">Name is required..</span>\n                </div>\n              </div>\n\n                <div class=\"form-group\">\n                    <label for=\"address\" class=\"col-xs-2\">Address</label>\n                    <div class=\"col-xs-6\">\n                        <input class=\"form-control\" placeholder=\"Address\" formControlName=\"address\"/>\n                        <span [hidden]=\"!hotelModel.hasError('required', 'address')\">Address is Required..</span>\n                    </div>\n                </div>\n\n                <div class=\"form-group\">\n                    <label for=\"zip\" class=\"col-xs-2\">Zip</label>\n\n                    <div class=\"col-xs-6\">\n                        <input class=\"form-control\" placeholder=\"Zip\" formControlName=\"zip\"/>\n                       <span [hidden]=\"!hotelModel.hasError('required', 'zip')\">Zip is required..</span>\n                    </div>\n                </div>\n            \n\n            <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\"/>\n            <a [routerLink]=\"['/list']\">List Hotels</a>\n        </form>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n    <div class=\"col-xs-12\">\n        <form [formGroup]=\"hotelModel\" class=\"form-horizontal\" (ngSubmit)=\"createHotel(hotelModel.value)\">\n\n              <div class=\"form-group\">\n                <label for=\"name\" class=\"col-xs-2\">Name</label>\n                <div class=\"col-xs-6\">\n                    <input class=\"form-control\" placeholder=\"Name\" formControlName=\"name\"/>\n                    <span [hidden]=\"!hotelModel.hasError('required', 'name')\">Name is required..</span>\n                    <span [hidden]=\"!hotelModel.hasError('minlength', 'name')\">At least 2 characters in length</span>\n                </div>\n              </div>\n\n                <div class=\"form-group\">\n                    <label for=\"address\" class=\"col-xs-2\">Address</label>\n                    <div class=\"col-xs-6\">\n                        <input class=\"form-control\" placeholder=\"Address\" formControlName=\"address\"/>\n                        <span [hidden]=\"!hotelModel.hasError('required', 'address')\">Address is Required..</span>\n                    </div>\n                </div>\n\n                <div class=\"form-group\">\n                    <label for=\"zip\" class=\"col-xs-2\">Zip</label>\n\n                    <div class=\"col-xs-6\">\n                        <input class=\"form-control\" placeholder=\"Zip\" formControlName=\"zip\"/>\n                       <span [hidden]=\"!hotelModel.hasError('required', 'zip')\">Zip is required..</span>\n                    </div>\n                </div>\n            \n\n            <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\"/>\n            <a [routerLink]=\"['/list']\">List Hotels</a>\n        </form>\n    </div>\n</div>\n"
 
 /***/ }),
 
 /***/ 164:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-xs-12\">\n        <form [formGroup]=\"hotelModel\" class=\"form-horizontal\" (ngSubmit)=\"updateHotel(hotelModel.value)\">\n          <input type=\"hidden\" formControlName=\"id\"/>\n          <input type=\"hidden\" formControlName=\"version\"/>\n            <div class=\"form-group\">\n                <label for=\"name\" class=\"col-xs-2\">Name</label>\n                <div class=\"col-xs-6\">\n                    <input class=\"form-control\" placeholder=\"Name\" formControlName=\"name\"/>\n                    <span [hidden]=\"!hotelModel.hasError('required', 'name')\">Name is required..</span>\n                </div>\n              </div>\n                <div class=\"form-group\">\n                    <label for=\"address\" class=\"col-xs-2\">Address</label>\n                    <div class=\"col-xs-6\">\n                        <input class=\"form-control\" placeholder=\"Address\" formControlName=\"address\"/>\n                        <span [hidden]=\"!hotelModel.hasError('required', 'address')\">Address is Required..</span>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label for=\"zip\" class=\"col-xs-2\">Zip</label>\n\n                    <div class=\"col-xs-6\">\n                        <input class=\"form-control\" placeholder=\"Zip\" formControlName=\"zip\"/>\n                       <span [hidden]=\"!hotelModel.hasError('required', 'zip')\">Zip is required..</span>\n                    </div>\n                </div>\n            <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\"/>\n            <a [routerLink]=\"['/list']\">List Hotels</a>\n        </form>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n    <div class=\"col-xs-12\">\n        <form [formGroup]=\"hotelModel\" class=\"form-horizontal\" (ngSubmit)=\"updateHotel(hotelModel)\">\n          <input type=\"hidden\" formControlName=\"id\"/>\n          <input type=\"hidden\" formControlName=\"version\"/>\n            <div class=\"form-group\">\n                <label for=\"name\" class=\"col-xs-2\">Name</label>\n                <div class=\"col-xs-6\">\n                    <input class=\"form-control\" placeholder=\"Name\" formControlName=\"name\"/>\n                    <span [hidden]=\"!hotelModel.hasError('required', 'name')\">Name is required..</span>\n                    <span [hidden]=\"!hotelModel.hasError('minlength', 'name')\">At least 2 characters in length</span>\n                </div>\n              </div>\n                <div class=\"form-group\">\n                    <label for=\"address\" class=\"col-xs-2\">Address</label>\n                    <div class=\"col-xs-6\">\n                        <input class=\"form-control\" placeholder=\"Address\" formControlName=\"address\"/>\n                        <span [hidden]=\"!hotelModel.hasError('required', 'address')\">Address is Required..</span>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label for=\"zip\" class=\"col-xs-2\">Zip</label>\n\n                    <div class=\"col-xs-6\">\n                        <input class=\"form-control\" placeholder=\"Zip\" formControlName=\"zip\"/>\n                       <span [hidden]=\"!hotelModel.hasError('required', 'zip')\">Zip is required..</span>\n                    </div>\n                </div>\n            <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\"/>\n            <a [routerLink]=\"['/list']\">List Hotels</a>\n        </form>\n    </div>\n</div>\n"
 
 /***/ }),
 
-/***/ 200:
+/***/ 198:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(89);
@@ -303,7 +303,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_app_app_component__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_hotels_hotel_create_component__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_hotels_hotel_edit_component__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common__ = __webpack_require__(22);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -433,5 +433,5 @@ var _a;
 
 /***/ })
 
-},[200]);
+},[198]);
 //# sourceMappingURL=main.bundle.js.map
