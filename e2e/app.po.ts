@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class SpringBootAngular2StaticSamplePage {
+export class SpringBootAngular2StaticSampleBkpPage {
   navigateTo() {
     return browser.get('/');
   }

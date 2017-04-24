@@ -1,10 +1,10 @@
-import { SpringBootAngular2StaticSamplePage } from './app.po';
+import { SpringBootAngular2StaticSampleBkpPage } from './app.po';
 
-describe('spring-boot-angular2-static-sample App', function() {
-  let page: SpringBootAngular2StaticSamplePage;
+describe('spring-boot-angular2-static-sample-bkp App', () => {
+  let page: SpringBootAngular2StaticSampleBkpPage;
 
   beforeEach(() => {
-    page = new SpringBootAngular2StaticSamplePage();
+    page = new SpringBootAngular2StaticSampleBkpPage();
   });
 
   it('should display message saying app works', () => {
