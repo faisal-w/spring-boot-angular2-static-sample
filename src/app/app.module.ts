@@ -8,6 +8,7 @@ import {HotelComponent} from "./components/hotels/hotel.component";
 import {AppComponent} from "./components/app/app.component"
 import {HotelCreateComponent} from "./components/hotels/hotel.create.component";
 import {HotelEditComponent} from "./components/hotels/hotel.edit.component";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 const appRoutes: Routes = [
   { path: 'list', component: HotelComponent },
@@ -31,7 +32,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers:[{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

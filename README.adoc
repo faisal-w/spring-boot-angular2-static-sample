@@ -12,7 +12,7 @@ cd spring-boot-angular2-static-sample
 ng init
 ----
 
-Edit angular-cli.json and modify outDir to `src/main/resources/static/`
+Edit `.angular-cli.json` and modify outDir to `src/main/resources/static/`
 
 That is it, build angular 2 content:
 [source, java]

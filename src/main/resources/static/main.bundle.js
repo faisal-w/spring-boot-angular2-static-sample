@@ -161,7 +161,7 @@ module.exports = "<router-outlet></router-outlet>"
 /***/ 162:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n    <div class=\"col-xs-12\">\n\n        <table class=\"table table-bordered table-striped\">\n            <thead>\n            <tr>\n                <th>ID</th>\n                <th>Name</th>\n                <th>Address</th>\n                <th>Zip</th>\n                <th>Action</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"let hotel of hotels; let e = even;\">\n                <td>{{hotel.id}}</td>\n                <td>{{hotel.name}}</td>\n                <td>{{hotel.address}}</td>\n                <td>{{hotel.zip}}</td>\n                <td><a [routerLink]=\"['/edit', hotel.id]\">Edit</a> </td>\n            </tbody>\n        </table>\n    </div>\n</div>\n<div class=\"row\">\n    <div class=\"col-xs-12\">\n        <a [routerLink]=\"['/create']\">New Hotel</a>\n    </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n    <div class=\"col-xs-12\">\n        <table class=\"table table-bordered table-striped\">\n            <thead>\n            <tr>\n                <th>ID</th>\n                <th>Name</th>\n                <th>Address</th>\n                <th>Zip</th>\n                <th>Action</th>\n            </tr>\n            </thead>\n            <tbody>\n            <tr *ngFor=\"let hotel of hotels; let e = even;\">\n                <td>{{hotel.id}}</td>\n                <td>{{hotel.name}}</td>\n                <td>{{hotel.address}}</td>\n                <td>{{hotel.zip}}</td>\n                <td><a [routerLink]=\"['/edit', hotel.id]\">Edit</a> </td>\n            </tbody>\n        </table>\n    </div>\n</div>\n<div class=\"row\">\n    <div class=\"col-xs-12\">\n        <a [routerLink]=\"['/create']\">New Hotel</a>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -246,7 +246,7 @@ var HotelService = (function () {
     return HotelService;
 }());
 HotelService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Injectable */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* Injectable */])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === "function" && _a || Object])
 ], HotelService);
 
@@ -303,6 +303,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_app_app_component__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_hotels_hotel_create_component__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_hotels_hotel_edit_component__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common__ = __webpack_require__(24);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -310,6 +311,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -346,7 +348,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
             __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* RouterModule */].forRoot(appRoutes)
         ],
-        providers: [],
+        providers: [{ provide: __WEBPACK_IMPORTED_MODULE_9__angular_common__["a" /* LocationStrategy */], useClass: __WEBPACK_IMPORTED_MODULE_9__angular_common__["b" /* HashLocationStrategy */] }],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_6__components_app_app_component__["a" /* AppComponent */]]
     })
 ], AppModule);

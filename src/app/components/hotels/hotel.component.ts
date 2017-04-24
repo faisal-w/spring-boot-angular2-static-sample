@@ -8,7 +8,6 @@ import {HotelService, Hotel} from '../../services/hotel.service'
   providers: [HotelService]
 })
 export class HotelComponent implements OnInit {
-
   hotels: Hotel[]
 
   constructor(private hotelService: HotelService) {
